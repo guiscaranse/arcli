@@ -13,6 +13,5 @@ def cli(ctx, arcli_file):
 @cli.command()
 @click.pass_obj
 def run(reader):
-    reader.teste()
     """ Default run command """
     pass

@@ -13,10 +13,8 @@ def cli(ctx, arcli_file):
 
 
 @cli.command()
-def run():
+@click.pass_obj
+def run(reader):
     """Default run command"""
-    print()
-
-
-if __name__ == "__main__":
-    cli()
+    reader.teste()
+    pass

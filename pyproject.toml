@@ -11,6 +11,7 @@ homepage = "https://github.com/guiscaranse/arcli"
 
 [tool.poetry.dependencies]
 python = "^3.6"
+click = "^7.0"
 
 [tool.poetry.dev-dependencies]
 

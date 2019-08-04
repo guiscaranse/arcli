@@ -11,7 +11,7 @@ def cli(ctx):
 @cli.command()
 def run():
     """Default run command"""
-    pass
+    print("Hello")
 
 
 if __name__ == "__main__":

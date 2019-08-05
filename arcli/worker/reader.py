@@ -21,10 +21,10 @@ class Reader(object):
         :param file: path to arcli file
         :return: Pathlib Path file
         """
-        if os.path.exists(os.path.join(os.getcwd(), file)):
-            return Path(os.path.join(os.getcwd(), file))
-        elif os.path.exists(file):
+        if os.path.exists(file):
             return Path(file)
+        elif os.path.exists(os.path.join(os.getcwd(), file)):
+            return Path(os.path.join(os.getcwd(), file))
         elif os.path.exists(os.path.join(ROOT_DIR, file)):
             return Path(os.path.join(ROOT_DIR, file))
         else:

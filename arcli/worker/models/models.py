@@ -26,7 +26,7 @@ class ArcliFile(BaseModel):
     os: OSEnum = OSEnum.any
     env: List[str] = []
     dependencies: List[str] = []
-    runtime: Union[List[str], ArcliStep] = []
+    runtime: List[Union[str, ArcliStep]] = []
 
     @validator('arcli')
     def check_arcli_version(cls, arcli):

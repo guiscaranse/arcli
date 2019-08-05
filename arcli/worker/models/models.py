@@ -18,7 +18,7 @@ class ArcliStepTrigger(BaseModel):
 class ArcliStep(BaseModel):
     name: str
     trigger: Optional[ArcliStepTrigger] = None
-    script: list
+    script: list = []
 
 
 class ArcliFile(BaseModel):

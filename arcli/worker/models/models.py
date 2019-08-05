@@ -1,5 +1,5 @@
 import platform
-from typing import Union
+from typing import Union, Optional, List
 
 import pkg_resources
 from pydantic import BaseModel, validator
@@ -10,10 +10,23 @@ from arcli.worker.models.enum import OSEnum
 from arcli.worker.models.util import is_tool
 
 
+class ArcliStepTrigger(BaseModel):
+    name: str
+    args: List[str] = []
+
+
+class ArcliStep(BaseModel):
+    name: str
+    trigger: Optional[ArcliStepTrigger] = None
+    script: list
+
+
 class ArcliFile(BaseModel):
     arcli: Union[str, float]  # Arcli Version
     os: OSEnum = OSEnum.any
-    dependencies: list = []
+    env: List[str] = []
+    dependencies: List[str] = []
+    runtime: Union[List[str], ArcliStep] = []
 
     @validator('arcli')
     def check_arcli_version(cls, arcli):
@@ -31,8 +44,7 @@ class ArcliFile(BaseModel):
         return os
 
     @validator('dependencies')
-    def check_dependencies(cls, dependencies):
-        for dep in dependencies:
-            if not is_tool(dep):
-                raise InvalidArcliFileContents('Required dependency is missing or is not in PATH ({}).'.format(dep))
-        return dependencies
+    def check_dependencies(cls, dep):
+        if not is_tool(dep):
+            raise InvalidArcliFileContents('Required dependency is missing or is not in PATH ({}).'.format(dep))
+        return dep

@@ -14,7 +14,7 @@ python = "^3.6"
 click = "^7.0"
 PyYAML = "^5.1.2"
 semver = "^2.8.1"
-
+pydantic = {extras = ["ujson"], version = "^0.31.1"}
 [tool.poetry.dev-dependencies]
 
 [build-system]

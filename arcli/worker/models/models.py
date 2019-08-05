@@ -7,6 +7,7 @@ from semantic_version import Spec, Version
 
 from arcli.exceptions.base import InvalidArcliFileContents
 from arcli.worker.models.enum import OSEnum
+from arcli.worker.models.util import is_tool
 
 
 class ArcliFile(BaseModel):
@@ -25,6 +26,13 @@ class ArcliFile(BaseModel):
 
     @validator('os')
     def check_os(cls, os):
-        if not str(os).upper() == str(platform.system()).upper() and str(os).upper() != OSEnum.any.upper():
+        if not str(os.value).upper() == str(platform.system()).upper() and os != OSEnum.any:
             raise InvalidArcliFileContents('Invalid operational system.')
         return os
+
+    @validator('dependencies')
+    def check_dependencies(cls, dependencies):
+        for dep in dependencies:
+            if not is_tool(dep):
+                raise InvalidArcliFileContents('Required dependency is missing or is not in PATH ({}).'.format(dep))
+        return dependencies

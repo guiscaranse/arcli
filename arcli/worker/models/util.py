@@ -4,3 +4,9 @@ def parse_arcli_version(version):
             return "=={}".format(str(version))
         else:
             return "=={}".format(str(version) + ".0")
+    else:
+        valid = ['<', '>', '==', '<=', '>=', '!=']
+        if any(ext in version for ext in valid):
+            return version
+        else:
+            return "=={}".format(version)

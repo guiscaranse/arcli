@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import yaml
+
 from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFile
 
@@ -8,6 +10,7 @@ from arcli.exceptions.base import InvalidArcliFile
 class Reader(object):
     def __init__(self, file):
         self.file = self.finder(file)
+        self.data = self.parse()
 
     @staticmethod
     def finder(file):
@@ -24,3 +27,14 @@ class Reader(object):
             return Path(os.path.join(ROOT_DIR, file))
         else:
             raise InvalidArcliFile("Invalid Arcli file {}".format(file))
+
+    def parse(self) -> dict:
+        """
+        Parse file to PyYAML
+        :return:
+        """
+        try:
+            from yaml import CLoader as Loader, CDumper as Dumper
+        except ImportError:
+            from yaml import Loader, Dumper
+        return yaml.load(self.file.read_text(), Loader=Loader)

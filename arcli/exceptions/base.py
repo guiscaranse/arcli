@@ -6,3 +6,7 @@ class ArcliException(BrokenPipeError):
 
 class InvalidArcliFile(ArcliException):
     pass
+
+
+class InvalidArcliFileContents(ArcliException):
+    pass

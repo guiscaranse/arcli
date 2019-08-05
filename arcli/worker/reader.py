@@ -5,12 +5,14 @@ import yaml
 
 from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFile
+from arcli.worker.models import ArcliFile
 
 
 class Reader(object):
     def __init__(self, file):
         self.file = self.finder(file)
         self.data = self.parse()
+        self.model = self.model_validate()
 
     @staticmethod
     def finder(file):
@@ -38,3 +40,6 @@ class Reader(object):
         except ImportError:
             from yaml import Loader, Dumper
         return yaml.load(self.file.read_text(), Loader=Loader)
+
+    def model_validate(self) -> ArcliFile:
+        return ArcliFile(**self.data)

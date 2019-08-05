@@ -18,4 +18,4 @@ class ArcliFile(BaseModel):
         if not semver.match(current_version, required_version):
             raise InvalidArcliFileContents('Invalid Arcli version for this project. '
                                            '(Installed {}, Required {})'.format(current_version, required_version))
-        return arcli
+        return required_version

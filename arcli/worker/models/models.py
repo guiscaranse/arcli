@@ -1,3 +1,4 @@
+import os
 import platform
 from typing import Union, Optional, List
 
@@ -57,3 +58,8 @@ class ArcliFile(BaseModel):
         if not is_tool(dep):
             raise InvalidArcliFileContents('Required dependency is missing or is not in PATH ({}).'.format(dep))
         return dep
+
+    @validator('env')
+    def check_env(cls, env):
+        os.environ[str(env).split("=", 1)[0]] = str(env).split("=", 1)[1]
+        return env

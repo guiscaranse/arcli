@@ -14,3 +14,7 @@ class InvalidArcliFileContents(ArcliException):
 
 class InvalidTrigger(ArcliException):
     pass
+
+
+class InvalidRuntimeCommand(ArcliException):
+    pass

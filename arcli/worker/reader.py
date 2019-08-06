@@ -5,7 +5,7 @@ import yaml
 
 from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFile
-from arcli.worker.models import ArcliFile, ArcliStep
+from arcli.worker.models import ArcliFile
 from arcli.worker.models.parsers import build_runtime
 
 
@@ -50,3 +50,6 @@ class Reader(object):
         runtime = build_runtime(self.data)
         self.data.pop("runtime")
         return ArcliFile(**self.data, runtime=runtime)
+
+    def get_model(self):
+        return self.model

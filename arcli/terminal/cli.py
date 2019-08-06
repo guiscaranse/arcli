@@ -1,5 +1,6 @@
 import click
 
+from arcli.worker.factory import Factory
 from arcli.worker.reader import Reader
 
 
@@ -15,5 +16,6 @@ def cli(ctx, arcli_file, fancy):
 @click.pass_obj
 def run(reader):
     """ Default run command """
-    print(reader.model)
+    fact = Factory(reader)
+    fact.run()
     pass

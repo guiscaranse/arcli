@@ -5,7 +5,8 @@ import yaml
 
 from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFile
-from arcli.worker.models import ArcliFile
+from arcli.worker.models import ArcliFile, ArcliStep
+from arcli.worker.models.parsers import build_runtime
 
 
 class Reader(object):
@@ -42,4 +43,10 @@ class Reader(object):
         return yaml.load(self.file.read_text(), Loader=Loader)
 
     def model_validate(self) -> ArcliFile:
-        return ArcliFile(**self.data)
+        """
+        Create and fill model, this will translate YAML to Pydantic
+        :return: ArcliFile (Pydantic Model)
+        """
+        runtime = build_runtime(self.data)
+        self.data.pop("runtime")
+        return ArcliFile(**self.data, runtime=runtime)

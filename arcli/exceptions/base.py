@@ -10,3 +10,7 @@ class InvalidArcliFile(ArcliException):
 
 class InvalidArcliFileContents(ArcliException):
     pass
+
+
+class InvalidTrigger(ArcliException):
+    pass

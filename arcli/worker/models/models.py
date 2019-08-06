@@ -1,12 +1,14 @@
 import os
 import platform
-from typing import Union, Optional, List
+from typing import Union, Optional, List, Any
 
 import pkg_resources
 from pydantic import BaseModel, validator
 from semantic_version import Spec, Version
 
-from arcli.exceptions.base import InvalidArcliFileContents
+from arcli import triggers
+from arcli.exceptions.base import InvalidArcliFileContents, InvalidTrigger
+from arcli.triggers.base import ArcliTrigger
 from arcli.worker.models.enum import OSEnum
 from arcli.worker.models.util import is_tool
 
@@ -17,6 +19,17 @@ class ArcliStepTrigger(BaseModel):
     """
     name: str
     args: List[str] = []
+    obj: Optional[ArcliTrigger] = None
+
+    @validator('obj', pre=True, always=True, whole=True)
+    def check_trigger(cls, value, values):
+        if values['name'] not in triggers.__all__:
+            raise InvalidTrigger('Invalid trigger ({}).'.format(values['name']))
+        obj_class = eval('triggers.{}()'.format(values['name']))
+        return obj_class
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class ArcliStep(BaseModel):

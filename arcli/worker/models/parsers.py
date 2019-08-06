@@ -12,7 +12,7 @@ def build_runtime(data: dict) -> list:
                 if 'trigger' in step_desc.keys():
                     step_trigger = ArcliStepTrigger(name=step_desc['trigger']['name'],
                                                     args=step_desc['trigger'].get("args", []))
-                runtime.append(ArcliStep(name=name, script=step_desc.get('script', ""), trigger=step_trigger))
+                runtime.append(ArcliStep(name=name, script=step_desc.get('script', []), trigger=step_trigger))
                 continue
         runtime.append(key)
     return runtime

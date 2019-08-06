@@ -17,7 +17,7 @@ class Factory(object):
             # check if it is a step
             if isinstance(run, ArcliStep):
                 # check if trigger exists and is triggered
-                if run.trigger and not run.trigger.obj.run(*run.trigger.args):
+                if run.trigger and not run.trigger.obj.run(*run.trigger.args, **run.trigger.options):
                     continue
                 # get script from step
                 run = run.script

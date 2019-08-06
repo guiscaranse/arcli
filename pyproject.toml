@@ -15,6 +15,7 @@ click = "^7.0"
 PyYAML = "^5.1.2"
 pydantic = {extras = ["ujson"], version = "^0.31.1"}
 semantic_version = "^2.6.0"
+gitpython = "^2.1.13"
 [tool.poetry.dev-dependencies]
 
 [build-system]

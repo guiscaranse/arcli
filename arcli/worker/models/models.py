@@ -11,17 +11,26 @@ from arcli.worker.models.util import is_tool
 
 
 class ArcliStepTrigger(BaseModel):
+    """
+    Model for storing Trigger data
+    """
     name: str
     args: List[str] = []
 
 
 class ArcliStep(BaseModel):
+    """
+    Model for storing Step data
+    """
     name: str
     trigger: Optional[ArcliStepTrigger] = None
     script: list = []
 
 
 class ArcliFile(BaseModel):
+    """
+    arcli.yml will be translated to this model.
+    """
     arcli: Union[str, float]  # Arcli Version
     os: OSEnum = OSEnum.any
     env: List[str] = []

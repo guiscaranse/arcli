@@ -43,6 +43,10 @@ class Reader(object):
         return yaml.load(self.file.read_text(), Loader=Loader)
 
     def model_validate(self) -> ArcliFile:
+        """
+        Create and fill model, this will translate YAML to Pydantic
+        :return: ArcliFile (Pydantic Model)
+        """
         runtime = build_runtime(self.data)
         self.data.pop("runtime")
         return ArcliFile(**self.data, runtime=runtime)

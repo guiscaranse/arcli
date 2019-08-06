@@ -10,15 +10,26 @@ class Factory(object):
         self.reader = reader
 
     def run(self):
+        # get data
         data = self.reader.get_model()
+        # get each command
         for run in data.runtime:
+            # check if it is a step
             if isinstance(run, ArcliStep):
-                if not run.trigger or not run.trigger.obj.run(*run.trigger.args):
+                # check if trigger exists and is triggered
+                if run.trigger and not run.trigger.obj.run(*run.trigger.args):
                     continue
+                # get script from step
                 run = run.script
+
+            # start command exec
             try:
-                cmd = str(run).split(" ") if isinstance(run, str) else run
-                if cmd:
-                    subprocess.run(cmd, check=True)
+                # check if is a single command
+                if isinstance(run, str):
+                    subprocess.run(str(run).split(" "), check=True)
+                else:  # probably a list
+                    for c in run:
+                        subprocess.run(str(c).split(" "), check=True)
             except Exception as e:
+                # get errors on runtime
                 raise InvalidRuntimeCommand(e.__str__())

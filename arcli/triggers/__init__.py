@@ -1,4 +1,6 @@
 from .always import Always
-triggers = ["Always"]
+from .git import GitDiff
+
+triggers = ["Always", "GitDiff"]
 
 __all__ = triggers

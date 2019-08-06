@@ -1,6 +1,6 @@
 import os
 import platform
-from typing import Union, Optional, List, Any
+from typing import Union, Optional, List, Any, Dict
 
 import pkg_resources
 from pydantic import BaseModel, validator
@@ -19,6 +19,7 @@ class ArcliStepTrigger(BaseModel):
     """
     name: str
     args: List[str] = []
+    options: Dict = dict()
     obj: Optional[ArcliTrigger] = None
 
     @validator('obj', pre=True, always=True, whole=True)

@@ -19,7 +19,7 @@ def cli(ctx, arcli_file):
 @click.pass_obj
 def run(obj):
     """ Default run command """
-    logging.basicConfig(filename='app.log', filemode='a', format='[%(levelname)s][%(asctime)s] %(message)s')
+    logging.basicConfig(filename='arclirun.log', filemode='a', format='[%(levelname)s][%(asctime)s] %(message)s')
     try:
         logging.info("Starting Arcli")
         logging.info("Parse Arcli File")

@@ -25,7 +25,7 @@
 Arcli started as a hobby and quickly evolved into something incredibly useful that I implement in my daily life. With Arcli you can write code routines to be executed at the time of a deployment, as well as optional steps that can be triggered by certain conditions.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installing
 You can install Arcli using pip 

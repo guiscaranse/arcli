@@ -215,4 +215,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+arcli.build/
 # End of https://www.gitignore.io/api/python,pycharm+all

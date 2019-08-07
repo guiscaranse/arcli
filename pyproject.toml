@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arcli"
-version = "0.1.0"
+version = "0.1.1"
 description = "A TravisCI inspired builder"
 authors = ["Guilherme Scaranse"]
 license = "Apache-2.0"
@@ -8,6 +8,13 @@ readme = "README.md"
 
 repository = "https://github.com/guiscaranse/arcli"
 homepage = "https://github.com/guiscaranse/arcli"
+
+keywords = ["build", "travisci", "arcli"]
+
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -22,3 +29,6 @@ colorama = "^0.4.1"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+arcli = "arcli.terminal.cli:cli"

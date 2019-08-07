@@ -1,25 +1,11 @@
-dist: xenial
+dist: bionic
 language: python
 python:
-- '3.7'
+- '3.6'
 install:
-- pip install poetry
+- pip install poetry nuitka
 - poetry config settings.virtualenvs.create false
 - poetry install
-- pip install -U nuitka
 script:
-- python -m nuitka --follow-imports --recurse-all --show-progress arcli
-before_deploy:
-- git config --local user.name "TravisCI"
-- git config --local user.email "travis@travis.com"
-- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-- git tag $TRAVIS_TAG
-- tar -czvf arcli-linux_arm64.tar.gz arcli.bin
-deploy:
-  provider: releases
-  api_key:
-    secure: Q9cIAb8URKkR1TiEaDc6BOjWl2XDB3HrIOdanfB6CHR4oWgkMwGtDdzDJIfFBZYEOwuMLdk2jyKfyb3U99gHUNJJNCRokNf8CS/1aC2GyOJzmSJcoW7fDTQLk88vgFkMdycSBfBgXhVHbLVA/XOscRnmThJdE/wMS1+3sJypTaKs8dpv1bSnsZh48QbnlecOkbU175Ksq+eZNoabb/U4HVGE4xO4qFXyQD74TDOEJ5+Jf+80z1Pd/w72I+UrUGw24mjIxyqphMvSONSM0I8HrTrKt1UiBU4Tl6Y+6GyGmtt5T+XdOjn7CZjkq4FQDaEtHM6PNG/LIIuyianwrqS68cwO0y+tiyi6CQM7sq3pbZ7cWnLHlLsQ1lSpzv5e5oy6Dzh5lQzoCPNWX3/0sfzjVoS1Ut36RE+DQf4XjNgVO7ZisVWPiZq/jV/pdY4r+IjlWMfOyFH5AO6e8w+ZttI+fcwXKLMkD5bfg/sNhwa+tUW1S+QmRid4ecKp3Pdm+B7OFhkFnUhZdxEn0LG1TvmXojfJ1ggbKLmd7IJbjxDCI6aaiGgIsRhv68stLIpe/vurIyvs0vhSNz5KxVqrZsUs4NBBwaCr2RscLW5VRlTWyv0F05qJYxd6oCz4MBeAKP2r28dXVesPuyqPZgXGM/ZopVJOBD2gzURsK1SxduNNXRU=
-  file: arcli-linux_arm64.tar.gz
-  on:
-    branch: master
-    repo: guiscaranse/arcli
+- mv arcli/__main__.py arcli.py
+- python -m nuitka --follow-imports --recurse-all --show-progress arcli.py

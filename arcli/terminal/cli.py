@@ -10,10 +10,9 @@ from arcli.worker.reader import Reader
 
 @click.group()
 @click.option('--arcli-file', envvar='ARCLI_FILE', default='arcli.yml')
-@click.option('--fancy/--no-fancy', default=False)
 @click.pass_context
-def cli(ctx, arcli_file, fancy):
-    ctx.obj = (arcli_file, fancy)
+def cli(ctx, arcli_file):
+    ctx.obj = (arcli_file)
 
 
 @cli.command()

@@ -2,10 +2,6 @@ dist: bionic
 language: python
 python:
 - '3.6'
-env:
-  global:
-  - secure: pMorWzm/jQ2APmxZckyMWcK2ezfNayHXqezQVa582MIJw4VoQfzkGnU0SOpnSx2Y5KPfbVc+AIds5fMsH8sVr/3q8sBe6nEoD6tX7Ni+S2PEw2YNdkyNMpezhW4FJBjT0o+R5pYRbHs2wWvpExAEw5t5Jz8QGpeEikFzh+sWAaRBnYhnCTkN8QWa7pGB6ppNokXPWfQgmGfr4s9sEIYJo0jKu4IRO/Ovd8R1+gaVazRwv4TKNmipodw0HiMxFLoe7wXBqt4cEh8R7Zv2xNe+JYzGUIFkOpyOBXrzWonD2Nz2i0VP1RCWz9Howmdbme1+slgR9mco7f9vSv8qPWC/73ZyYdymSeWWMm4TDnhbIqOIJRVWeI6FZvmoDKvqZPlhZ2iWfvHnAMEq6fvb61RdIArI9lqIWW25X2c2tL4HUIloy8po/gqBKWK1tZudSBbG1Hk5CJVS1XnLces8wEpGbqu5Cl6q9hBdRErfbdG0dyyeYu6Y5MPafG0P1Gg24u2xPVBpHNgI0sLZx5kmT5P0OD3u5AygXVGPheLs3GxfP7So2sZBRmwWtzKpMdjQ4RFkqnB011bd6sudC3skl2JBxhMRTNxVKS3BzQlJamqfG9frmKQ/rcWhDwxjS/SPOSKPCub5lBJmFvuw2cNXSXMXTeVwjsog81L4fYRXD0FufMA=
-  - secure: wKPX6Mx8Xuu49lJeGRGUH6JupJ2fbbtWDt0N+iEQbf0qsBFYn0QzoxoyaWLl5yKCgK9lnaIvVdMTMfiocdlCZ55cQliWNNn6FFc4oSWG0GgNl7s0oRzvAAX/4RCb98djtYwHnnttOQLrQiqna8uh2KbMSSSiZWqjwo9Ixy6r1oFrH0HaWtp9phvl+5SN0YPUIcThQY4YLqb//Txo6gx2OsPEEQz1YDguZTB47/8OH8e3SKOjyCeUZAjz6Q94zcZNP7NuX8QS4xKtPSnSs36f90wy5hV2NgH5uJT0HH1fc+EQb4/BcGnNs/tmmaE0a/eH/obhph4AE+bjmKCxtp7e4coJNewCrYzsPGHSaaBdHqHC8EGoHNIUvPkWpXb3AquCBDu3LeMwlUMESyvlTgOxHBXAgh/x0nYjW4CE3W2xEGauXIeQwEja46uoSD8RVOSb63npPG78E1gNHoVgVI5TAaZgPpH3ebKGxM/EpaSJpXEjkAc4/rQGUwZu+79ZEsEIqio0L2qUJzUconMIFuC04AJqhaexO74eszoxF+hnQKGEd4x+5gFS4I77RsXWYKqXwPdzNgrUKWP+Ny+JlQM3oR9lJhW7F/BKxdPVs5LMXZ4Mh5Gh5BxSTKun09fZvP/cOxKsC+EJYnO3dSReaIJrhRPTUhc+riA8y9P8sYhgaYA=
 install:
 - pip install poetry nuitka
 - poetry config settings.virtualenvs.create false
@@ -13,10 +9,12 @@ install:
 script:
 - echo "TBD"
 before_deploy:
-  - poetry build
+- poetry build
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: poetry publish --username $PYPY_USER --password $PYPI_PASS
-    on:
-      branch: master
+- provider: script
+  skip_cleanup: true
+  script: poetry publish --username $PYPY_USER --password $PYPI_PASS
+  on:
+    branch: master
+env:
+  secure: Ubiv2INXdLvcZCugKx6PvyeOKcESwtUXS26LYLh89mqIpwKOAU0sC+mlcBE0uaVKE0CbDTRkkGFrsisjItxXXujCpfzHpHbahqKcJuNxJi5ZMeaz7WHDrLDuNeiZcFfdMqlt7ui5Famyo3cz/atRySzPULwmFdsAVidL0tK9iQMQyhHZGys6obt15KKyovcjBdSCDyMJOb4zafayq4CZtn3+XTjCd1T/QTXR/pLc/5A3hY32vbI7vYMnK7JIOGzNsBjw39cziJsyzqX93QpKJ/sx4PcJGAijkpkYkiGojF3W8J5JYVP54aGWsOU5LTTioHqtS/GJtV5SF2vfI609424Z4pSL3cyUWHvZ9d5S9hDV/84hfo0Uj+CGoc72dUUrI1/GpsDbdfdi5CQebei9xOOfvydZcVl7LYFK5Fwg/0M2AfENUaDV0RtLgMFUPECkmMhyq5kFD0kPUGs7yLbnWDklIN+rYMUz0pL7Kr/D2yddWsZ04yd0MpQxOkuX61fWoEIVh+YOunmoW8eJ9pqE6CDRl1bRowNhhOvCuARz0UoNJ+h0940Uu1gpB/+F/UjgsA/18nfCM3rlWAqeoRKGri99UjmyOKj1WejwnW2fElGVWc+IbGtu9Ps36S0Ee80u6skrFDxEvu+UuLPVCLzWXgFVA/wAQsu2dBYUROQu2Q4=

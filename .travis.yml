@@ -7,5 +7,4 @@ install:
 - poetry config settings.virtualenvs.create false
 - poetry install
 script:
-- mv arcli/__main__.py arcli.py
-- python -m nuitka --follow-imports --recurse-all --show-progress arcli.py
+- echo "TBD"

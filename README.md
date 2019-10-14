@@ -34,22 +34,16 @@ You can install Arcli using pip
 pip install arcli
 ```
 
-or by downloading one of our pre-compiled binaries.
-
-```sh
-# Download
-wget https://github.com/guiscaranse/arcli/releases/latest/download/arcli-linux_arm64.tar.gz
-# Extract
-tar arcli-linux_arm64.tar.gz
-# Make executable
-chmod u+x arcli
-```
-
 Start using it or add it to your `PATH` 
 
 ```sh
 arcli run
 ```
+
+
+#### Binaries
+
+Binaries are not available right now due to compilation problems.
 
 ## 🎈 Usage and Definitions <a name="usage"></a>
 Arcli will try to find and read an Arcli File (`arcli.yml`) where it will parse and run it.
@@ -130,4 +124,3 @@ Triggers documentation can be found in each respective trigger file.
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [Python](https://www.python.org/) - Python
 - [Click](https://click.palletsprojects.com/en/master/) - CLI Framework
-- [Nuitka](http://nuitka.net) - Binaries generator

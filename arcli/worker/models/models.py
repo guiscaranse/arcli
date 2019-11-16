@@ -9,6 +9,7 @@ from semantic_version import Spec, Version
 from arcli import triggers
 from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFileContents, InvalidTrigger
+from arcli.shared.util import file_exists
 from arcli.triggers.base import ArcliTrigger
 from arcli.worker.models.enum import OSEnum
 from arcli.worker.models.util import is_tool
@@ -87,5 +88,13 @@ class ArcliFile(BaseModel):
 
     @validator('env')
     def check_env(cls, env):
-        os.environ[str(env).split("=", 1)[0]] = str(env).split("=", 1)[1]
+        if "=" in env:
+            os.environ[str(env).split("=", 1)[0]] = str(env).split("=", 1)[1]
+        elif file_exists(env):
+            with file_exists(env).open() as f:
+                for line in f:
+                    if line.startswith('#'):
+                        continue
+                    key, value = line.strip().split('=', 1)
+                    os.environ[key] = value  # Load to local environ
         return env

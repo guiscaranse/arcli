@@ -14,8 +14,13 @@ class GitDiff(ArcliTrigger):
           trigger:
             name: GitDiff
             args: ["docker-compose.yml", "arcli/*.py]
+            options:
+                onetime: true
     This will check if the difference between the current and last commit was with those files.
     If no argument is provided it will check if there where differences (will in most cases, always trigger).
+
+    Custom options:
+        onetime (bool): Check if trigger should be triggered just once for each commit.
     """
     def run(self, *args, **kwargs) -> bool:
         # Get repo

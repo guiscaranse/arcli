@@ -10,9 +10,10 @@ from arcli.worker.reader import Reader
 
 @click.group()
 @click.option('--arcli-file', envvar='ARCLI_FILE', default='arcli.yml')
+@click.option('--output', envvar='ARCLI_OUTPUT_MODE', is_flag=True)
 @click.pass_context
-def cli(ctx, arcli_file):
-    ctx.obj = (arcli_file,)
+def cli(ctx, arcli_file, output):
+    ctx.obj = (arcli_file, output)
 
 
 @cli.command()
@@ -27,9 +28,11 @@ def run(obj, command):
         reader = Reader(obj[0], key_reader=command)
         logging.info("Arcli file parsed")
         logging.info("Starting Arcli Factory")
-        fact = Factory(reader)
+        fact = Factory(reader, output_mode=obj[1])
         logging.info("Factory run")
-        fact.run()
+        output = fact.run()
+        if output:
+            click.echo("\n".join(output), nl=False)
     except ArcliException as e:
         logging.error(e)
         logging.error(traceback.format_exc())

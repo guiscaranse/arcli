@@ -6,12 +6,14 @@ from arcli.worker.reader import Reader
 
 
 class Factory(object):
-    def __init__(self, reader: Reader):
+    def __init__(self, reader: Reader, output_mode=False):
         self.reader = reader
+        self.output_mode = output_mode
 
     def run(self):
         # get data
         data = self.reader.get_model()
+        output = []
         # get each command
         for run in data.runtime:
             # check if it is a step
@@ -25,11 +27,20 @@ class Factory(object):
             # start command exec
             try:
                 # check if is a single command
-                if isinstance(run, str):
-                    subprocess.run(str(run).split(" "), check=True)
-                else:  # probably a list
-                    for c in run:
-                        subprocess.run(str(c).split(" "), check=True)
+                    if isinstance(run, str):
+                        if self.output_mode:
+                            output.append(str(run))
+                        else:
+                            subprocess.run(str(run).split(" "), check=True)
+                    else:  # probably a list
+                        for c in run:
+                            if self.output_mode:
+                                output.extend(str(c))
+                            else:
+                                subprocess.run(str(c).split(" "), check=True)
             except Exception as e:
                 # get errors on runtime
                 raise InvalidRuntimeCommand(e.__str__())
+
+        if self.output_mode:
+            return output

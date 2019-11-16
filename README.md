@@ -54,11 +54,12 @@ An Arcli file is an instruction file written in YAML. Arcli will interpret it, p
 Here it is a sample Arcli file (more samples on `samples`).
 
 ```yaml
-arcli: 0.1
+arcli: 0.2
 os: linux
 dependencies:
   - git
 env:
+  - .env
   - TEST=sampleenv
 runtime:
   - 'echo Hello World'
@@ -79,7 +80,7 @@ step @checkgit:
 | arcli        | float | No       | Refers to the version of Arcli that that file was made, it is possible to use Semantic Versioning for this field |
 | os           | str   | Yes      | Which operating system this file was made to run [`linux`, `osx`, `windows`, `any` (default)]                    |
 | dependencies | list  | Yes      | Which executables this file will need to use                                                                     |
-| env          | list  | Yes      | List of environment variables that will be injected at runtime.                                                  |
+| env          | list  | Yes      | List of environment variables that will be injected at runtime. You can pass a .env file here too.               |
 | runtime      | list  | No       | List of main commands to be executed by Arcli. You can reference steps using `$step [step name]`                 |
 
 #### Step and Triggers definitions

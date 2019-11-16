@@ -1,6 +1,4 @@
-import os
-
-from arcli.config.base import ROOT_DIR
+from arcli.shared.util import file_exists
 from arcli.triggers.base import ArcliTrigger
 
 
@@ -15,15 +13,8 @@ class FileWatcher(ArcliTrigger):
     If multiple args were given, all files/folders must exist to trigger
     If no argument is provided it will not trigger.
     """
-    def file_exists(self, file) -> bool:
-        if os.path.exists(file):
-            return True
-        elif os.path.exists(os.path.join(os.getcwd(), file)):
-            return True
-        elif os.path.exists(os.path.join(ROOT_DIR, file)):
-            return True
 
     def run(self, *args, **kwargs) -> bool:
         if not args:
             return False
-        return all(self.file_exists(file) for file in args)
+        return all(file_exists(file) for file in args)

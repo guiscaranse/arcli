@@ -3,6 +3,7 @@ import os
 
 from git import Repo
 
+from arcli.config.base import SHARED_DB
 from arcli.triggers.base import ArcliTrigger
 
 
@@ -23,6 +24,12 @@ class GitDiff(ArcliTrigger):
             return False
         # Get last commit
         hcommit = repo.head.commit
+        # Check if is one time
+        if kwargs.get("onetime", False):
+            db = SHARED_DB
+            if db.get("git_last_commit") == str(hcommit):
+                return False
+            db.add({"git_last_commit": str(hcommit)})
         # Get diffs between last and first
         diffs = hcommit.diff('HEAD~1')
         if args:

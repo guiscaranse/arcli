@@ -1,12 +1,13 @@
 import os
 import platform
-from typing import Union, Optional, List, Any, Dict
+from typing import Union, Optional, List, Dict
 
 import pkg_resources
 from pydantic import BaseModel, validator
 from semantic_version import Spec, Version
 
 from arcli import triggers
+from arcli.config.base import ROOT_DIR
 from arcli.exceptions.base import InvalidArcliFileContents, InvalidTrigger
 from arcli.triggers.base import ArcliTrigger
 from arcli.worker.models.enum import OSEnum
@@ -54,11 +55,21 @@ class ArcliFile(BaseModel):
 
     @validator('arcli')
     def check_arcli_version(cls, arcli):
-        current_version = pkg_resources.get_distribution('arcli').version
+        try:
+            current_version = pkg_resources.get_distribution('arcli').version
+        except:
+            # Version fallback 
+            import configparser
+            parser = configparser.ConfigParser(allow_no_value=True)
+            path = os.path.join(ROOT_DIR, 'pyproject.toml')
+            parser.read(path)
+            return parser["tool.poetry"]["version"]
+
         required_version = Spec(arcli)
         if not required_version.match(Version(current_version)):
             raise InvalidArcliFileContents('Invalid Arcli version for this project. '
-                                           '(Installed {}, Required {})'.format(current_version, required_version))
+                                           '(Installed {}, Required {})'.format(current_version,
+                                                                                required_version))
         return current_version
 
     @validator('os')
@@ -70,7 +81,8 @@ class ArcliFile(BaseModel):
     @validator('dependencies')
     def check_dependencies(cls, dep):
         if not is_tool(dep):
-            raise InvalidArcliFileContents('Required dependency is missing or is not in PATH ({}).'.format(dep))
+            raise InvalidArcliFileContents(
+                'Required dependency is missing or is not in PATH ({}).'.format(dep))
         return dep
 
     @validator('env')

@@ -91,10 +91,9 @@ class ArcliFile(BaseModel):
         if "=" in env:
             os.environ[str(env).split("=", 1)[0]] = str(env).split("=", 1)[1]
         elif file_exists(env):
-            with file_exists(env).open() as f:
-                for line in f:
-                    if line.startswith('#'):
-                        continue
-                    key, value = line.strip().split('=', 1)
-                    os.environ[key] = value  # Load to local environ
+            for line in file_exists(env).read_text().splitlines():
+                if line.startswith('#'):
+                    continue
+                key, value = line.strip().split('=', 1)
+                os.environ[key] = value  # Load to local environ
         return env

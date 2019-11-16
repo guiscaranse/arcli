@@ -29,7 +29,7 @@ class GitDiff(ArcliTrigger):
             # Use args to find matches
             for arg in args:
                 for diff in diffs:
-                    if fnmatch.fnmatch(arg, diff.a_path) or fnmatch.fnmatch(arg, diff.b_path):
+                    if fnmatch.fnmatch(diff.a_path, arg) or fnmatch.fnmatch(diff.b_path, arg):
                         return True
         else:
             if diffs:

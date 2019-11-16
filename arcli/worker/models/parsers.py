@@ -1,9 +1,9 @@
 from arcli.worker.models import ArcliStep, ArcliStepTrigger
 
 
-def build_runtime(data: dict) -> list:
+def build_runtime(data: dict, key="runtime") -> list:
     runtime = []
-    for key in data['runtime']:
+    for key in data[key]:
         if isinstance(key, str) and "$step" in key:
             name = key.split(" ", 1)[1]
             step_desc = data.get("step @{}".format(name))

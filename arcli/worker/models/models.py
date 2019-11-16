@@ -58,7 +58,7 @@ class ArcliFile(BaseModel):
         try:
             current_version = pkg_resources.get_distribution('arcli').version
         except:
-            # Version fallback 
+            # Version fallback
             import configparser
             parser = configparser.ConfigParser(allow_no_value=True)
             path = os.path.join(ROOT_DIR, 'pyproject.toml')

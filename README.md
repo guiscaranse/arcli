@@ -51,7 +51,7 @@ Arcli will try to find and read an Arcli File (`arcli.yml`) where it will parse 
 ### Arcli File
 An Arcli file is an instruction file written in YAML. Arcli will interpret it, perform validations, and thus run the codes described.
 
-Here it is a sample Arcli file (more samples on `samples`).
+Here it is a sample Arcli file (more [samples](./samples)).
 
 ```yaml
 arcli: 0.2

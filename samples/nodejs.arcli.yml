@@ -12,6 +12,8 @@ step @check_deps:
   trigger:
     name: FileWatcher
     args: ["node_modules"]
+    options:
+      reverse: true
   script:
     - npm install
 step @update_deps:

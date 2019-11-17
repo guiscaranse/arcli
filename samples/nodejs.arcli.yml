@@ -1,0 +1,22 @@
+arcli: 0.2
+dependencies:
+  - git
+  - npm
+  - node
+runtime:
+  - 'echo Checking files...'.
+  - $step check_deps
+  - $step update_deps
+  - npm start
+step @check_deps:
+  trigger:
+    name: FileWatcher
+    args: ["node_modules"]
+  script:
+    - npm install
+step @update_deps:
+  trigger:
+    name: GitDiff
+    args: ["package.json", "package-lock.json"]
+  script:
+    - npm install
